@@ -1,0 +1,68 @@
+#include <iostream>
+
+// O(N^2) dijkstras
+// We maintain connections via smt such as an adj list or adj matrix
+// We also need to maintain a bool arr to check if we have visited a node
+// We also need an int arr keeping track of minimum costs for each node
+// Initially, we set the starting node as True in the bool arr and 0 in the distance arr
+// While all the elements in the graph are not added to bool arr:
+//
+// A.	Let ‘u’ be any vertex not in ‘bool arr’ and has minimum label    dist[u]
+// B.	Add ‘u’ to "bool arr"
+// C.	Update the label of the elements adjacent to u
+//        For each vertex ‘v’ adjacent to u
+//        If ‘v’ is not in ‘bool arr’ then
+//        If dist[u]+weight(cost from u to v)<dist[v] then
+//        Dist[v]=dist[u]+weight(cost from u to v)
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+struct info{int node, cost;};
+
+map<int, vector<info>> adj_list;
+void dijkstras(int start, int n){
+    bool vis[3002]; int dist[3002];
+    for (int i=1; i <= n; i++) dist[i] = INT_MAX; // Fill dist arr
+    dist[start] = 0;
+
+    for (int i = 1; i <= n; i++){
+        int mins = INT_MAX;
+        int u = -1;
+        for (int j = 1; j <= n; j++){
+            if (!vis[j]&&dist[j]<mins){
+                mins = dist[j];
+                u = j;
+            }
+        }
+
+        if (u == -1) break; // We have explored all nodes
+        vis[u] = true;
+        for (int v = 0; v < adj_list[u].size(); v++){
+            dist[adj_list[u][v].node] = min(dist[adj_list[u][v].node], dist[u] + adj_list[u][v].cost);  // Try to break node's shortest path
+        }
+    }
+
+    for (int i = 1; i<= n; i++){
+        cout << (dist[i] != INT_MAX ? dist[i]: -1) << endl;
+    }
+
+
+}
+
+// Driver Code
+int main()
+{
+    int v, e;
+    cin >> v >> e;
+    for (int i = 0; i < e; i++){
+        int a, b, w; cin >> a >> b >> w;
+        adj_list[a].push_back({b, w});
+        adj_list[b].push_back({a, w});
+    }
+
+    dijkstras(1, v);
+
+
+}
