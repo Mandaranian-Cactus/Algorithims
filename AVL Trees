@@ -1,1 +1,23 @@
+AVL TREES
 
+AVL Trees are a variation of Binary trees. Binary trees are a special type of trees. Trees are Trees
+
+Trees
+-Do not contain cycles
+-Have a single node at the top called the "root node"
+-Every node can be clasified as a  "parent node"
+-Every parent node will have "children nodes" descending down the tree
+-Nodes at the very bottom a.k.a having no children nodes are known as "leaf nodes"
+-Basically the entire thing looking like a triangle
+
+Binary Trees
+-Have tree properties
+-Every parent node have up to 2 children nodes
+-There is a "left child node" which should be SMALLER than the parent
+-There is a "right child node" which should be LARGER than the parent
+
+AVL Trees
+-Have binary tree properties
+-Has a height of "logn" (anchored at the root node) where "n" is the # of nodes in the tree 
+-https://www.youtube.com/watch?v=TbvhGcf6UJU (Proof of logn height. Would not watch since bad video)
+-Also must satisfy the property that for any node, the difference between the left and right subtrees must be at most 1
