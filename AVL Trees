@@ -21,3 +21,45 @@ AVL Trees
 -Has a height of "logn" (anchored at the root node) where "n" is the # of nodes in the tree 
 -https://www.youtube.com/watch?v=TbvhGcf6UJU (Proof of logn height. Would not watch since bad video)
 -Also must satisfy the property that for any node, the difference between the left and right subtrees must be at most 1
+-Self balancing
+-O(logn) insertion and deletion
+
+
+AVL Trees are special mainly in their property of "self-balancing". This basically means that when we insert smt into the tree, the tree
+may alter itself to satify the O(logn) insertion and deletion properties. This ability to transform itself takes O(1) time and ulitizes a
+combination of "balancing properties". This includes 2 main transformations: "left rotation, and "right rotation" along with 4
+sub-combinations: "left-left", "right-right", "left-right", "right-left".
+
+     y                               x   <----- x is taking the place of y
+    / \     Right Rotation          /  \
+   x   T3   - - - - - - - >        T1   y  <--- y is taking the place of x
+  / \       < - - - - - - -            / \
+ T1  T2     Left Rotation            T2  T3
+ 
+ In the following diagram, we have a right and left rotation.
+ The basic idea of the digram is to illustrate a transformation such that the characteristics of an AVL tree are preserved.
+ In this case, we cn notice that insipite swapping the positions of sum nodes such as T2, x, and y, we still have a binary tree.
+ We can explain this reasoning with logic.
+ 
+ x < T2 < y
+ T1 < x
+ y < T3
+ 
+ Since T2 is in between x and y, it can be placed either to the left of y or to the RIGHT of x or to the LEFT of y.
+ The following key order is preserved (key order are values in increasing order):
+ 
+ keys(T1) < key(x) < keys(T2) < key(y) < keys(T3)
+
+Steps to follow for insertion
+Let the newly inserted node be w
+1) Perform standard BST insert for w.
+2) Starting from w, travel up and find the first unbalanced node. Let z be the first unbalanced node, y be the child of z that 
+comes on the path from w to z and x be the grandchild of z that comes on the path from w to z.
+3) Re-balance the tree by performing appropriate rotations on the subtree rooted with z. There can be 4 possible cases that needs
+to be handled as x, y and z can be arranged in 4 ways. Following are the possible 4 arrangements:
+a) y is left child of z and x is left child of y (Left Left Case)
+b) y is left child of z and x is right child of y (Left Right Case)
+c) y is right child of z and x is right child of y (Right Right Case)
+d) y is right child of z and x is left child of y (Right Left Case)
+
+Following are the operations to be performed in above mention
